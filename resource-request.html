@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resource Request Form - Helping Hand</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #004085;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+    button.submitted {
+      background-color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 id="form-title">Request Resources</h2>
+    <form id="resourceRequestForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="govtId">Government ID Type:</label>
+      <select id="govtId" name="govtId" required>
+        <option value="">Select ID Type</option>
+        <option value="Aadhar">Aadhar</option>
+        <option value="Passport">Passport</option>
+        <option value="Driver's License">Driver's License</option>
+        <option value="Voter ID">Voter ID</option>
+      </select>
+
+      <label for="idNumber">ID Number:</label>
+      <input type="text" id="idNumber" name="idNumber" required />
+
+      <label for="date">Request Date:</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required />
+
+      <label for="amount">Amount of Resources Needed:</label>
+      <input type="number" id="amount" name="amount" min="1" required />
+      <div class="error-message" id="amount-error">Not enough resources present</div>
+
+      <label for="description">Description of Needs:</label>
+      <textarea id="description" name="description" rows="4" required></textarea>
+
+      <button type="submit" id="submitBtn">Request Resources</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("resourceRequestForm");
+    const amountField = document.getElementById("amount");
+    const amountError = document.getElementById("amount-error");
+    const formTitle = document.getElementById("form-title");
+
+    const selectedResource = sessionStorage.getItem("selectedResource");
+    if (selectedResource) {
+      formTitle.textContent = `${selectedResource} Request`;
+    }
+
+    amountField.addEventListener("input", () => {
+      if (parseInt(amountField.value, 10) > 198) {
+        amountError.style.display = "block";
+      } else {
+        amountError.style.display = "none";
+      }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (parseInt(amountField.value, 10) > 198) {
+        amountError.style.display = "block";
+        return;
+      }
+
+      const request = {
+        name: document.getElementById("name").value,
+        govtId: document.getElementById("govtId").value,
+        idNumber: document.getElementById("idNumber").value,
+        date: document.getElementById("date").value,
+        location: document.getElementById("location").value,
+        amount: document.getElementById("amount").value,
+        description: document.getElementById("description").value,
+        resource: selectedResource || "Resource"
+      };
+
+      const existing = JSON.parse(localStorage.getItem("resourceRequests") || "[]");
+      existing.push(request);
+      localStorage.setItem("resourceRequests", JSON.stringify(existing));
+
+      alert("Resource request submitted successfully!");
+      window.location.href = "resources.html";
+    });
+  </script>
+
+</body>
+</html>

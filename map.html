@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Live Disaster Relief Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
+<script>
+  const map = L.map('map').setView([20.5937, 78.9629], 5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const reliefCenters = [
+    { lat: 28.6139, lng: 77.2090, name: 'Delhi Shelter' },
+    { lat: 19.0760, lng: 72.8777, name: 'Mumbai Water Supply' },
+    { lat: 13.0827, lng: 80.2707, name: 'Chennai Medical Relief' }
+  ];
+
+  reliefCenters.forEach(center => {
+    L.marker([center.lat, center.lng])
+      .addTo(map)
+      .bindPopup(`<b>${center.name}</b>`);
+  });
+
+  L.Routing.control({
+    waypoints: [
+      L.latLng(28.6139, 77.2090),
+      L.latLng(19.0760, 72.8777),
+      L.latLng(13.0827, 80.2707)
+    ],
+    routeWhileDragging: false
+  }).addTo(map);
+</script>
+
+</body>
+</html>

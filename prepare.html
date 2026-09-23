@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preparedness - Helping Hand</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    .navbar {
+      background-color: #000;
+      color: white;
+      padding: 15px 0;
+    }
+
+    .prep-section {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .prep-card {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .prep-title {
+      font-size: 1.3rem;
+      color: #004085;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .prep-tips {
+      display: none;
+      margin-top: 10px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .arrow {
+      font-size: 1.3rem;
+      color: #007bff;
+    }
+
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px;
+      background-image: url("logo1.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 40px 60px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #eee;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      color: white;
+      margin-top: 40px;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .logo-img {
+      height: 45px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .register-btn {
+      background-color: yellow;
+      color: black;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .register-btn:hover {
+      background-color: gold;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1500;
+      background-color: #004085;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 10px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #0056b3;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      font-size: 30px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <span class="hamburger" onclick="toggleSidebar()">&#9776;</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="logo.png" alt="Helping Hand Logo" class="logo-img" />
+        <h1 class="logo" style="margin: 0;">Helping Hand</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="emergency.html">Emergency Contacts</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="prepare.html">Preparedness</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="map.html">Live Map</a></li>
+        <li id="nav-user-slot">
+          <a class="register-btn" href="signin.html">Register</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="emergency.html">🚨 Emergency</a>
+    <a href="services.html">🛠️ Services</a>
+    <a href="resources.html">📦 Resources</a>
+    <a href="prepare.html">🧰 Preparedness</a>
+    <a href="signin.html">🔐 Sign In</a>
+    <a href="signup.html">📝 Sign Up</a>
+  </div>
+
+  <header class="hero">
+    <div>
+      <h2>Disaster Preparedness</h2>
+      <p>Learn essential tips to stay ready before an emergency strikes.</p>
+    </div>
+  </header>
+
+  <section class="prep-section">
+    <!-- Home Safety -->
+    <div class="prep-card">
+      <div class="prep-title" onclick="toggleTips(this)">
+        🏠 Home Safety <span class="arrow">▼</span>
+      </div>
+      <div class="prep-tips">
+        <ul>
+          <li>Secure heavy furniture and wall hangings.</li>
+          <li>Install smoke detectors and check them monthly.</li>
+          <li>Know how to shut off water, gas, and electricity.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Emergency Kit -->
+    <div class="prep-card">
+      <div class="prep-title" onclick="toggleTips(this)">
+        🧰 Emergency Kit <span class="arrow">▼</span>
+      </div>
+      <div class="prep-tips">
+        <ul>
+          <li>Include water, non-perishable food, flashlight, batteries, and a first aid kit.</li>
+          <li>Pack necessary medications and copies of documents.</li>
+          <li>Store kit in an easily accessible place for all family members.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Communication Plan -->
+    <div class="prep-card">
+      <div class="prep-title" onclick="toggleTips(this)">
+        📞 Communication Plan <span class="arrow">▼</span>
+      </div>
+      <div class="prep-tips">
+        <ul>
+          <li>Establish an out-of-area emergency contact.</li>
+          <li>Ensure every family member knows the plan.</li>
+          <li>Use text messaging if phone lines are busy.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Helping Hand | All rights reserved</p>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("mySidebar");
+      sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
+    }
+
+    function toggleTips(element) {
+      const tips = element.nextElementSibling;
+      const arrow = element.querySelector('.arrow');
+      const isVisible = tips.style.display === "block";
+
+      tips.style.display = isVisible ? "none" : "block";
+      arrow.textContent = isVisible ? "▼" : "▲";
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      const isLoggedIn = sessionStorage.getItem("sessionLoggedIn") === "true";
+      const navUserSlot = document.getElementById("nav-user-slot");
+
+      if (isLoggedIn && navUserSlot) {
+        navUserSlot.innerHTML = `
+          <img src="tp-logo.png" alt="User Logo" style="
+            height: 38px;
+            width: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+          " title="Welcome!" />
+        `;
+      }
+    });
+  </script>
+
+</body>
+</html>

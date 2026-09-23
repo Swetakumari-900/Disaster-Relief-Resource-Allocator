@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ongoing Resource Requests</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #004085;
+    }
+    .request-item {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background-color: #fafafa;
+    }
+    .request-item strong {
+      display: inline-block;
+      width: 160px;
+      color: #333;
+    }
+    .no-requests {
+      text-align: center;
+      color: #666;
+      font-size: 1.1rem;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Ongoing Resource Requests</h2>
+    <div id="requestsContainer"></div>
+  </div>
+
+  <script>
+    const allRequests = JSON.parse(localStorage.getItem('resourceRequests') || '[]');
+    const container = document.getElementById('requestsContainer');
+
+    if (allRequests.length === 0) {
+      container.innerHTML = '<p class="no-requests">No ongoing requests found.</p>';
+    } else {
+      allRequests.forEach(req => {
+        const item = document.createElement('div');
+        item.className = 'request-item';
+        item.innerHTML = `
+          <div><strong>Resource:</strong> ${req.resource}</div>
+          <div><strong>Name:</strong> ${req.name}</div>
+          <div><strong>ID Type:</strong> ${req.govtId}</div>
+          <div><strong>ID Number:</strong> ${req.idNumber}</div>
+          <div><strong>Date:</strong> ${req.date}</div>
+          <div><strong>Location:</strong> ${req.location}</div>
+          <div><strong>Amount:</strong> ${req.amount}</div>
+          <div><strong>Description:</strong> ${req.description}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+  </script>
+
+</body>
+</html>

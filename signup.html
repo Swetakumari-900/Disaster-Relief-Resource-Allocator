@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background-color: black;
+      color: white;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo {
+      color: white;
+    }
+
+    ul.nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .form-section {
+      flex: 1;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .form-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .form-section label {
+      display: block;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .form-section input[type="text"],
+    .form-section input[type="email"],
+    .form-section input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      margin-top: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    footer {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container nav-container" style="display: flex; align-items: center; gap: 15px;">
+        <span class="hamburger" onclick="toggleSidebar()">&#9776;</span>
+        <div style="display: flex; align-items: center; gap: 10px; margin-left: 10px;">
+          <img src="logo.png" alt="Logo" class="logo-img" />
+          <h1 class="logo" style="margin: 0;">Relief Allocator</h1>
+        </div>
+        <ul class="nav-links" style="margin-left: auto;">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+      <a href="index.html">🏠 Home</a>
+      <a href="signin.html">🔐 Sign In</a>
+      <a href="signup.html">📝 Sign Up</a>
+      <a href="#victimList">👤 Victim Tracker</a>
+      <a href="#treeContainer">🌳 Tree Map</a>
+      <a href="#graphResult">🛰️ Graph Route</a>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="form-section">
+      <h2>Create an Account</h2>
+      <form id="signupForm">
+        <label for="signupFirstName">First Name:</label>
+        <input type="text" id="signupFirstName" required value="Piyush" />
+
+        <label for="signupLastName">Last Name:</label>
+        <input type="text" id="signupLastName" required value="Kumar" />
+
+        <label for="signupEmail">Email:</label>
+        <input type="email" id="signupEmail" required value="disasterrelief@gmail.com" />
+
+        <label for="signupPassword">Password:</label>
+        <input type="password" id="signupPassword" required value="7391@Piyush12" />
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p style="margin-top: 20px;">Already have an account? <a href="signin.html">Sign in here</a></p>
+      <div id="signupMessage"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Helping Hand | All rights reserved</p>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const predefinedUser = {
+      firstName: "Piyush",
+      lastName: "Kumar",
+      email: "disasterrelief@gmail.com",
+      password: "7391@Piyush12"
+    };
+    localStorage.setItem("user", JSON.stringify(predefinedUser));
+  </script>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const user = {
+        firstName: document.getElementById("signupFirstName").value.trim(),
+        lastName: document.getElementById("signupLastName").value.trim(),
+        email: document.getElementById("signupEmail").value.trim(),
+        password: document.getElementById("signupPassword").value
+      };
+
+      localStorage.setItem("user", JSON.stringify(user));
+      sessionStorage.setItem("sessionLoggedIn", "true");
+      document.getElementById("signupMessage").textContent = "Account created successfully!";
+      
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    });
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById("mySidebar");
+      sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
+    }
+  </script>
+
+</body>
+</html>
